@@ -1,0 +1,20 @@
+.appBarWrapper {
+    background-color: var(--primaryColour);
+    padding: .5rem 1rem;
+}
+
+.appBarContainer {
+    display: flex;
+}
+
+.appBarNav {
+    display: flex;
+    justify-content: space-between;
+     width: 50%;
+}
+
+.appBarNavItem {
+    background-color: var(--fourtharyColour);
+    padding: .2rem .5rem;
+    border-radius: .3rem;
+}
