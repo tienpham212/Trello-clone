@@ -11,6 +11,17 @@ const BoardColumn: FC = () => {
   return (
     <Wrapper>
         <BoardSection/>
+        <BoardSection/>
+        <BoardSection/>
+        <BoardSection/>
+        <BoardSection/>
+        <BoardSection/>
+        <BoardSection/>
+        <BoardSection/>
+        <BoardSection/>
+        <BoardSection/>
+        <BoardSection/>
+        <BoardSection/>
     </Wrapper>
   );
 };

@@ -24,6 +24,11 @@ const BoardColumnSection: FC<BoardColumnSectionProps> = ({children}) => {
           <ListItem>Item 2</ListItem>
           <ListItem>Item 3</ListItem>
           <ListItem>Item 4</ListItem>
+          <ListItem>Item 4</ListItem>
+          <ListItem>Item 4</ListItem>
+          <ListItem>Item 4</ListItem>
+          <ListItem>Item 4</ListItem>
+          <ListItem>Item 4</ListItem>
         </List>
         <Footer>End of column 1</Footer>
       </Container>

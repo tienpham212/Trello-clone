@@ -8,7 +8,7 @@ interface ListItemProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ListItem: FC<ListItemProps> = ({children}) => {
-  return <div className={styles.listItem}>{children}</div>;
+  return <div className={styles.boardColumnListItem}>{children}</div>;
 };
 
 export default ListItem;
