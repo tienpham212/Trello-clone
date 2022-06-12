@@ -1,0 +1,19 @@
+.taskColumnContainer::-webkit-scrollbar{
+    -webkit-appearance: none;
+    background-color: #DDDDE4;
+    border-radius: 5px;
+}
+
+.taskColumnContainer::-webkit-scrollbar:vertical {
+    width: .4rem;
+}
+
+.taskColumnContainer::-webkit-scrollbar-thumb {
+    background-color: #c5c5c6 ;
+    border-radius: 5px;
+}
+
+.taskColumnContainer {
+    max-height: 30vh;
+    overflow-y: auto;
+}

@@ -1,0 +1,7 @@
+.taskCardContainer {
+    background-color: var(--fiftharyColour);
+    padding: .2rem 1rem;
+    border-radius: .3rem;
+    box-shadow: 0px 1px 2px 1px #00000033;
+    margin: 0 .5rem .6rem 0 ;
+}
