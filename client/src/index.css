@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.5rem;
+}
+
+:root {
+        font-size: 16px;
+    --primaryColour: #1965a1;
+    --secondaryColour: #5CA4D5;
+    --thirdaryColour: #1F79BF;
+    --fourtharyColour: #EBECF0;
+    --fiftharyColour: #ffff;
+}

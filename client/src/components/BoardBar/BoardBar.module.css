@@ -1,0 +1,21 @@
+.boardBarwrapper {
+    background-color: var(--thirdaryColour) ;
+    padding: .5rem 1rem;
+}
+
+.boardBarContainer {
+    display: flex;
+
+}
+
+.boardBarNav {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.boardBarNavItem {
+    background-color: var(--fourtharyColour);
+    padding: .2rem .5rem;
+    border-radius: .3rem;
+}

@@ -1,0 +1,35 @@
+.boardColumnContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    background-color: var(--fourtharyColour);
+    border-radius: .4rem;
+    padding: .8rem .5rem;
+}
+
+.boardColumnSection {
+    width: 272px;
+}
+
+.boardColumnHeader {
+    font-weight: 600;
+    
+}
+
+.boardColumnFooter {
+     
+}
+
+.boardColumnListItem {
+    background-color: var(--fiftharyColour);
+    padding: .2rem 1rem;
+    border-radius: .3rem;
+    box-shadow: 0px 1px 2px 1px #00000033;
+    margin-bottom: .6rem;
+}
+
+.boardColumnWrapper {
+    background-color: var(--thirdaryColour) ;
+    padding: 1rem;
+}
