@@ -15,5 +15,10 @@
 
 .taskColumnContainer {
     max-height: 30vh;
+    min-height: 100px;
     overflow-y: auto;
+}
+
+.columnDraggingOver{
+    background-color: pink;
 }
