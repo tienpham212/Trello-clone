@@ -7,6 +7,7 @@ import styles from "./Trello.module.css"
 import AppBar from '../components/AppBar';
 import BoardBar from '../components/BoardBar';
 import BoardColumn from '../components/BoardColumn';
+import Counter from '../redux/features/Counter';
 
 
 const Trello:FC = () => {
@@ -15,6 +16,7 @@ const Trello:FC = () => {
         <AppBar />
         <BoardBar />
         <BoardColumn />
+        <Counter/>
       </div>
     );
 }

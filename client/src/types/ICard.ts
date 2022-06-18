@@ -1,7 +1,8 @@
 export interface ICard {
-  id:string;
-  boardId: string;
-  columnId: string;
-  title: string;
-  cover?: null | string;
+  id: string,
+  content: string,
+}
+
+export interface ICards {
+  [key : string] : ICard,
 }

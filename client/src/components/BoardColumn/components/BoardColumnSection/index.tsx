@@ -11,63 +11,72 @@ import TaskCard from "../../../TaskCard";
 import TaskColumn from "../../../TaskColumn";
 import { IColumn } from "../../../../types/IColumn";
 import { mapOrder } from "../../../../helper/utilites";
-import { ICard } from "../../../../types/ICard";
+import { ICard, ICards } from "../../../../types/ICard";
 import {Droppable, Draggable} from "react-beautiful-dnd";
 
 interface BoardColumnSectionProps extends React.HTMLAttributes<HTMLDivElement> {
-  taskColumn: IColumn,
+  taskColumn: IColumn;
+  cards: ICard[];
+  provided: any;
+  innerRef: any;
 }
 
-const BoardColumnSection: FC<BoardColumnSectionProps> = ({
-  taskColumn,
-}) => {
 
-  const cards = mapOrder(taskColumn.cards , taskColumn.cardOrder, "id");
+class BoardColumnSection extends React.Component<BoardColumnSectionProps> {
 
+  render() {
+    const {taskColumn, provided, innerRef, cards} = this.props;
+    let {cardOrder, id, title} = taskColumn;
 
-  return (
-    <>
-      {
-        <div className={styles.boardColumnSection}>
-          <Container>
-            <Header>{taskColumn.title}</Header>
-            <Droppable
-              droppableId={taskColumn.id}>
-              {(provided, snapshot) => (
-                <TaskColumn
-                  isDraggingOver={false}
-                  provided={provided}
-                  innerRef={provided.innerRef}>
-                  {cards.map((card: ICard, index: number) => {
-                    return (
-                      <Draggable
-                        key={card.id}
-                        draggableId={card.id}
-                        index={index}>
-                        {(provided, snapshot) => (
-                          <>
-                            {/* I use react class componen here because rfc do not accept ref */}
+    return (
+      <>
+        {
+          <div
+            className={styles.boardColumnSection}
+            {...provided.draggableProps}
+            ref={innerRef}>
+            <Container>
+              <div
+                {...provided.dragHandleProps}
+                className={styles.boardColumnHeader}>
+                {title}
+              </div>
+              <Droppable droppableId={id} type="task">
+                {(provided, snapshot) => (
+                  <TaskColumn
+                    isDraggingOver={false}
+                    provided={provided}
+                    innerRef={provided.innerRef}>
+                    {cardOrder.map((cardId: string, index: number) => {
+                      return (
+                        <Draggable
+                          key={cardId}
+                          draggableId={cardId}
+                          index={index}>
+                          {(provided, snapshot) => (
                             <TaskCard
                               provided={provided}
                               innerRef={provided.innerRef}
-                              title={card.title}
                               snapshot={snapshot}
+                              aira-roledescription="Press space bar to left the task"
+                              card = {cards[cardId]}
                             />
-                          </>
-                        )}
-                      </Draggable>
-                    );
-                  })}
-                  {provided.placeholder}
-                </TaskColumn>
-              )}
-            </Droppable>
-            <Footer>End of column 1</Footer>
-          </Container>
-        </div>
-      }
-    </>
-  );
-};
+                          )}
+                        </Draggable>
+                      );
+                    })}
+                    {provided.placeholder}
+                  </TaskColumn>
+                )}
+              </Droppable>
+              <Footer>End of column 1</Footer>
+            </Container>
+          </div>
+        }
+      </>
+    );
+  }
+}
 
 export default BoardColumnSection;
+

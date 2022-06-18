@@ -1,7 +1,8 @@
-import { IColumn } from "./IColumn";
+import { ICards } from "./ICard";
+import { IColumns } from "./IColumn";
 
 export interface IList {
-    id: string,
-    columnOrder: string[] | string,
-    columns: IColumn[],
+  cards: ICards;
+  columns: IColumns;
+  columnOrder: string[];
 }
