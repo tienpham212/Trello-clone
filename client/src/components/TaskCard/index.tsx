@@ -13,8 +13,6 @@ interface TaskCardProps extends React.HTMLAttributes<HTMLDivElement> {
 class TaskCard extends React.Component<TaskCardProps> {
   render() {
     const {provided, innerRef, snapshot, card} = this.props;
-    console.log(card);
-    
     return (
       <div
         className={`${styles.taskCardContainer} ${

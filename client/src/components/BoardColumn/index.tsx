@@ -16,6 +16,9 @@ import {mapOrder} from "../../helper/utilites";
 //REDUX
 import { connect } from "react-redux";
 import { ConnectedProps } from "react-redux";
+import {setColumnOrder, setCardOrder} from "../../redux/features/boardSlice";
+import { RootState } from "../../redux/store";
+import AddNewColumnContainer from "./components/AddNewColumnContainer";
 
 interface BordColumnProps extends ConnectedProps<typeof connector> {
 
@@ -23,125 +26,81 @@ interface BordColumnProps extends ConnectedProps<typeof connector> {
 
 const BoardColumn: FC<BordColumnProps> = ({
   board,
+  setColumnOrder,
+  setCardOrder,
 }) => {
-  // const [board, setBoard] = useState<IList[]>(exmapleData);
-  // const [columns, setColumns] = useState<IColumn[]>(exmapleData[0].columns);
   let {columnOrder, cards, columns} = board;
 
   const onDragStart = (start, provided) => {
-    provided.announce(
-      `You have lifted te task in position ${start.source.index + 1}`
-    );
   };
 
   const onDragUpdate = (update, provided) => {
-    const message = update.destination
-      ? `You have moved the task to position ${update.destination.index + 1}`
-      : `You are currently not over a droppable area`;
 
-    provided.announce(message);
+  };
+
+  const changeColumnOrder = (
+    columnOrder: string[],
+    source: any,
+    destination: any,
+    draggableId: string
+  ) => {
+    const newColumnOrder = Array.from(columnOrder);
+    newColumnOrder.splice(source.index, 1);
+    newColumnOrder.splice(destination.index, 0, draggableId);
+    setColumnOrder(newColumnOrder);
+  };
+
+  const isDraggValid = (destination: any, source: any) => {
+    if (
+      !destination ||
+      (destination.droppableId === source.droppableId &&
+        destination.index === source.index)
+    ) {
+      return false;
+    }
+    return true;
   };
 
   const onDragEnd = (res, provided) => {
-    //   const message = res.destination
-    //     ? `You have moved the task from position
-    //     ${res.source.index + 1} to ${res.destination.index + 1}`
-    //     : `The task has been returned to its starting position of
-    //     ${res.source.index + 1}`;
-
-    //   provided.announce(message);
     // todo: reorder our columns
-    // const {destination, source, draggableId, type} = res;
+    const {destination, source, draggableId, type} = res;
 
-    // if (type === "column") {
-    //   const newColumnOrder = Array.from(board[0].columnOrder);
-    //   newColumnOrder.splice(source.index, 1);
-    //   newColumnOrder.splice(destination.index, 0, draggableId);
+    if (!isDraggValid(destination, source)) {
+      return;
+    }
 
-    //   const newBoard = Array.from(board);
-    //   newBoard[0].columnOrder = newColumnOrder;
-    //   setBoard(newBoard);
-    // }
+    //Change column order
+    if (type === "column") {
+      changeColumnOrder(board.columnOrder, source, destination, draggableId);
+    }
 
-    // if (!destination) {
-    //   return;
-    // }
+    const destinationId = destination.droppableId;
+    const sourceId = source.droppableId;
 
-    // if (
-    //   destination.droppableId === source.droppableId &&
-    //   destination.index === source.index
-    // ) {
-    //   return;
-    // }
-
-    // const startIndexColumn = columns.findIndex(
-    //   (item) => item.id === source.droppableId
-    // );
-
-    // const finishIndexColumn = columns.findIndex(
-    //   (item) => item.id === destination.droppableId
-    // );
-
-    // if (startIndexColumn === -1) {
-    //   return;
-    // }
-
-    // const start = columns[startIndexColumn];
-    // const finish = columns[finishIndexColumn];
-
-    // if (startIndexColumn === finishIndexColumn) {
-    //   //Moving within the column
-    //   const newCardOrder = Array.from(start.cardOrder);
-    //   newCardOrder.splice(source.index, 1);
-    //   newCardOrder.splice(destination.index, 0, draggableId);
-
-    //   const newColumn = {
-    //     ...start,
-    //     cardOrder: newCardOrder,
-    //   };
-
-    //   const newColumns = [...columns];
-    //   newColumns[startIndexColumn] = newColumn;
-
-    //   setColumns(newColumns);
-    // } else {
-    //   //Moving form one list to another
-    //   const newStartColumnOrder = Array.from(start.cardOrder);
-
-    //   const startCardId = newStartColumnOrder.splice(source.index, 1);
-
-    //   const startCardIndex = start.cards.findIndex(
-    //     (item) => item.id === startCardId[0]
-    //   );
-    //   const newStartColumnCards = Array.from(start.cards);
-    //   const draggedCardFromStart = newStartColumnCards.splice(
-    //     startCardIndex,
-    //     1
-    //   );
-
-    //   const newStartColumn = {
-    //     ...start,
-    //     cardOrder: newStartColumnOrder,
-    //     cards: newStartColumnCards,
-    //   };
-
-    //   const newFinishColumnOrder = Array.from(finish.cardOrder);
-    //   newFinishColumnOrder.splice(destination.index, 0, draggableId);
-    //   const newFinishColumnCard = Array.from(finish.cards);
-    //   newFinishColumnCard.splice(destination.index, 0, draggedCardFromStart[0]);
-
-    //   const newFinishColumn = {
-    //     ...finish,
-    //     cardOrder: newFinishColumnOrder,
-    //     cards: newFinishColumnCard,
-    //   };
-
-    //   const newColumns = [...columns];
-    //   newColumns[startIndexColumn] = newStartColumn;
-    //   newColumns[finishIndexColumn] = newFinishColumn;
-
-    //   setColumns(newColumns);
-    // }
+    if (destinationId === sourceId) {
+      //Moving within the column
+      if (columns[destinationId]) {
+        const newCardOrder: string[] = [...columns[destinationId].cardOrder] ;
+        newCardOrder.splice(source.index, 1);
+        newCardOrder.splice(destination.index, 0, draggableId);
+        setCardOrder([{columnId: destinationId, cardOrder: newCardOrder}]);
+      }
+        
+    } else {
+      // Moving form one list to another
+      const newStartColumnOrder: string[] = Array.from(columns[sourceId].cardOrder);
+      newStartColumnOrder.splice(source.index , 1);
+    
+      const newFinishCardOrder: string[] = Array.from(
+        columns[destinationId].cardOrder
+      );
+      newFinishCardOrder.splice(destination.index, 0, draggableId);
+      
+      setCardOrder([
+        {columnId: sourceId, cardOrder: newStartColumnOrder},
+        {columnId: destinationId, cardOrder: newFinishCardOrder},
+      ]);
+    }
   };
 
   return (
@@ -149,10 +108,7 @@ const BoardColumn: FC<BordColumnProps> = ({
       onDragEnd={onDragEnd}
       onDragStart={onDragStart}
       onDragUpdate={onDragUpdate}>
-      <Droppable
-        droppableId="all-columns12"
-        direction="horizontal"
-        type="column">
+      <Droppable droppableId="all-columns" direction="horizontal" type="column">
         {(provided) => (
           <Wrapper provided={provided} innerRef={provided.innerRef}>
             {columnOrder.map((columnId: string, index: number) => {
@@ -163,13 +119,14 @@ const BoardColumn: FC<BordColumnProps> = ({
                       provided={provided}
                       innerRef={provided.innerRef}
                       taskColumn={columns[columnId]}
-                      cards= {cards}
+                      cards={cards}
                     />
                   )}
                 </Draggable>
               );
             })}
             {provided.placeholder}
+            <AddNewColumnContainer/>
           </Wrapper>
         )}
       </Droppable>
@@ -177,10 +134,15 @@ const BoardColumn: FC<BordColumnProps> = ({
   );
 };
 
-const mapState = (state) =>({
-  board: state.board
-})
+const mapState = (state: RootState) => ({
+  board: state.board,
+});
 
-const connector = connect(mapState)
+const mapDispatch = {
+  setColumnOrder,
+  setCardOrder,
+};
+
+const connector = connect(mapState , mapDispatch)
 
 export default connector(BoardColumn);

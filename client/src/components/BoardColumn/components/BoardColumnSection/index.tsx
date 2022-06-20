@@ -16,7 +16,7 @@ import {Droppable, Draggable} from "react-beautiful-dnd";
 
 interface BoardColumnSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   taskColumn: IColumn;
-  cards: ICard[];
+  cards: ICards;
   provided: any;
   innerRef: any;
 }
