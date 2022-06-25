@@ -14,11 +14,13 @@
 
 .boardColumnHeader {
     font-weight: 600;
-    
+    display: flex;
+    justify-content: space-between;
 }
 
 .boardColumnFooter {
-     
+    display: flex;
+    justify-content: space-between;
 }
 
 .boardColumnList {

@@ -1,7 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IList } from "../../types/IList";
 import initialData from "../../helper/initialData";
-import { IColumns } from "../../types/IColumn";
+import { IColumn, IColumns } from "../../types/IColumn";
+import { ICard } from "../../types/ICard";
 
 const initialState: IList = initialData;
 
@@ -24,7 +25,59 @@ const boardSlice = createSlice({
         state.columns[item.columnId].cardOrder = item.cardOrder;
       }
     },
+    addNewColumn: (
+      state: IList,
+      action: PayloadAction<{columnTitle: string}>
+    ) => {
+      const columnId = `${Math.random()}`;
+      const newColumn: IColumn = {
+        id: columnId,
+        title: action.payload?.columnTitle,
+        cardOrder: [],
+      };
+      state.columns = {...state.columns, [columnId]: newColumn};
+      state.columnOrder = [...state.columnOrder, columnId];
+    },
+    deleteColumn: (state: IList, action: PayloadAction<{columnId: string}>) => {
+      const {columnId} = action.payload;
+      const newColumnOrder = state.columnOrder.filter(
+        (item) => item !== columnId
+      );
+      state.columnOrder = newColumnOrder;
+    },
+    editColumnTitle: (
+      state: IList,
+      action: PayloadAction<{columnId: string; editTitle: string}>
+    ) => {
+      const {columnId, editTitle} = action.payload;
+      state.columns[columnId].title = editTitle;
+    },
+    addNewCardToColumn: (
+      state: IList,
+      action: PayloadAction<{columnId: string; cardContent: string}>
+    ) => {
+      const {columnId, cardContent} = action.payload;
+      console.log(columnId, cardContent);
+
+      const cardId = `${Math.random()}`;
+      const newCard: ICard = {
+        id: cardId,
+        content: cardContent,
+      };
+      state.cards = {...state.cards, [cardId]: newCard};
+      state.columns[columnId].cardOrder = [
+        ...state.columns[columnId].cardOrder,
+        cardId,
+      ];
+    },
   },
 });
-export const {setColumnOrder, setCardOrder} = boardSlice.actions;
+export const {
+  setColumnOrder,
+  setCardOrder,
+  addNewColumn,
+  deleteColumn,
+  editColumnTitle,
+  addNewCardToColumn,
+} = boardSlice.actions;
 export default boardSlice.reducer;
