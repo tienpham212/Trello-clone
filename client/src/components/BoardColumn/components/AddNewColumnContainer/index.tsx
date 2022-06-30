@@ -46,7 +46,11 @@ const AddNewColumnContainer:FC = () => {
             <div>
               {item ? (
                 <animated.div className={styles.buttons} style={style}>
-                  <Button>Add Card</Button>
+                  <Button
+                    onClick={() => {console.log(123)}}
+                  >
+                    Add Card
+                    </Button>
                   {/* <div onClick={handleAddClick} className={styles.icon}> */}
                   <FaRegWindowClose
                     onClick={handleAddClick}
