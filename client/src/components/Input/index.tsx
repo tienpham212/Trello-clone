@@ -3,9 +3,7 @@ import React, {FC} from 'react'
 //CSS
 import styles from "./Input.module.css"
 
-interface InputProps extends React.HTMLAttributes<HTMLInputElement>{
-
-}
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Input:FC<InputProps> = ({
 ...rest

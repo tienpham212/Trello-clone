@@ -10,6 +10,7 @@
 
 .boardColumnSection {
     min-width: 272px;
+    position: relative;
 }
 
 .boardColumnHeader {
@@ -69,17 +70,17 @@
 .addListInput {
     background-color: #D4DEDF;
     padding: .2rem;
-    border-radius: .3rem .3rem 0 0;    
+    border-radius: .3rem .3rem 0 0;
+    padding: .8rem .5rem;     
 }
 
 .addListInput input {
     width: 100%;
-    padding: .7rem .2rem;
     box-shadow: inset 0 0 0 2px #0079bf;
 }
 .buttons {
     background-color: #D4DEDF;
-    padding: 0 .2rem .2rem;
+    padding: 0 .5rem .8rem;
     border-radius: 0 0 .3rem .3rem;
     display: flex;
     gap: .3rem;
@@ -94,5 +95,26 @@
 
 .icon:hover {
     color: #b62b2b;
+}
+
+.iconCheck {
+    color: #22c956;
+    font-size: 1.3rem;
+    cursor: pointer;
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
+}
+
+.inputGroup {
+    position: relative;
+    width: 100%;
+}
+.iconClose {
+    font-size: 1rem;
+    cursor: pointer;
+    position: absolute;
+    right: .5rem;
+    top: .3rem;
 }
 
