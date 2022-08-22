@@ -1,0 +1,19 @@
+.bar1, .bar2, .bar3 {
+  width: 1rem;
+  height: .2rem;
+  background-color: #333;
+  margin: .12rem 0;
+  transition: 0.4s;
+}
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-.15rem, .1rem);
+  transform: rotate(-45deg) translate(-.15rem, .1rem);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-.3rem, -.3rem);
+  transform: rotate(45deg) translate(-.3rem, -.3rem);
+}

@@ -20,6 +20,7 @@ import TaskColumn from "../../../TaskColumn";
 import {connect, ConnectedProps} from "react-redux";
 import {editColumnTitle, deleteColumn} from "../../../../redux/features/boardSlice";
 import {RootState} from "../../../../redux/store";
+import MenuIcon from "../../../MenuIcon";
 
 
 
@@ -30,9 +31,10 @@ interface BoardColumnSectionProps extends React.HTMLAttributes<HTMLDivElement> ,
   innerRef: any;
 }
 class BoardColumnSection extends React.Component<BoardColumnSectionProps> {
-  state: {isTitleClick: boolean; columnTitle: string} = {
+  state: {isTitleClick: boolean; columnTitle: string; isMenuOpen: boolean;} = {
     isTitleClick: false,
     columnTitle: "",
+    isMenuOpen: false,
   };
 
   constructor(props) {
@@ -120,18 +122,32 @@ class BoardColumnSection extends React.Component<BoardColumnSectionProps> {
                 )}
               </div>
               {!this.state.isTitleClick && (
-                <Popconfirm
-                  title="Are you sure to delete this task?"
-                  onConfirm={handleDeleteColumn}
-                  okText="Yes"
-                  cancelText="No">
-                  <FaRegWindowClose
-                    className={styles.iconClose}
-                    // onClick={handleDeleteColumn}
-                  />
-                </Popconfirm>
+                <MenuIcon
+                  handleClick={() => {
+                    this.setState({
+                      ...this.state,
+                      isMenuOpen: !this.state.isMenuOpen,
+                    });
+                  }}
+                  isMenuOpen={this.state.isMenuOpen}
+                  cssClass={styles.iconClose}
+                  title="List Actions"
+                  content={
+                    <div>
+                      <Popconfirm
+                        title="Are you sure to delete this task?"
+                        onConfirm={handleDeleteColumn}
+                        okText="Yes"
+                        cancelText="No"
+                        placement="right"
+                        >
+                        <p>Delete Column...</p>
+                      </Popconfirm>
+                      <p>Add Card...</p>
+                    </div>
+                  }
+                />
               )}
-
               <Droppable droppableId={id} type="task">
                 {(provided, snapshot) => (
                   <TaskColumn
