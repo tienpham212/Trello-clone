@@ -18,8 +18,10 @@ import TaskColumn from "../../../TaskColumn";
 
 //REDUX
 import {connect, ConnectedProps} from "react-redux";
-import {editColumnTitle, deleteColumn} from "../../../../redux/features/boardSlice";
+import {editColumnTitle, deleteColumn, addNewCardToColumn} from "../../../../redux/features/boardSlice";
 import {RootState} from "../../../../redux/store";
+import MenuIcon from "../../../MenuIcon";
+import testThunk from "../../../../redux/thunks/collumnThunk";
 
 
 
@@ -30,9 +32,19 @@ interface BoardColumnSectionProps extends React.HTMLAttributes<HTMLDivElement> ,
   innerRef: any;
 }
 class BoardColumnSection extends React.Component<BoardColumnSectionProps> {
-  state: {isTitleClick: boolean; columnTitle: string} = {
+
+  state: {
+    isTitleClick: boolean;
+    columnTitle: string;
+    addCardContent: string;
+    isMenuOpen: boolean;
+    isCardAddClick: boolean;
+  } = {
     isTitleClick: false,
     columnTitle: "",
+    isMenuOpen: false,
+    isCardAddClick: false,
+    addCardContent: "",
   };
 
   constructor(props) {
@@ -47,7 +59,6 @@ class BoardColumnSection extends React.Component<BoardColumnSectionProps> {
         isTitleClick: false,
         columnTitle: this.props.taskColumn?.title,
       });
-      
     }
   }
 
@@ -61,12 +72,21 @@ class BoardColumnSection extends React.Component<BoardColumnSectionProps> {
   }
 
   render() {
-    const {taskColumn, provided, innerRef, cards, editColumnTitle, deleteColumn} = this.props;
+    const {
+      taskColumn,
+      provided,
+      innerRef,
+      cards,
+      editColumnTitle,
+      deleteColumn,
+      addNewCardToColumn,
+      testThunk
+    } = this.props;
     let {cardOrder, id, title} = taskColumn;
-
+    
     const handleInput = (e) => {
-      const value = e.target.value;
-      this.setState({...this.state, columnTitle: value});
+      const {value, name} = e.target;
+      this.setState({...this.state, [name]: value});
     };
 
     const hanldeTitleChange = () => {
@@ -80,11 +100,20 @@ class BoardColumnSection extends React.Component<BoardColumnSectionProps> {
     const handleTitleChangeOnKeyDown = (e) => {
       if (e.key === "Enter") {
         hanldeTitleChange();
-      } 
+      }
     };
 
     const handleDeleteColumn = () => {
       deleteColumn({columnId: id});
+    };
+
+    const confirmAddCard = () => {
+      addNewCardToColumn({columnId: id , cardContent: this.state.addCardContent});
+      this.setState({...this.state, isCardAddClick: false, addCardContent: ""});
+    }
+
+    const closeAddCard = () => {
+      this.setState({...this.state, isCardAddClick: false, addCardContent: ""});
     }
 
     return (
@@ -106,6 +135,7 @@ class BoardColumnSection extends React.Component<BoardColumnSectionProps> {
                 {this.state.isTitleClick ? (
                   <div className={styles.inputGroup}>
                     <Input
+                      name="columnTitle"
                       value={this.state.columnTitle}
                       onChange={handleInput}
                       onKeyDown={handleTitleChangeOnKeyDown}
@@ -120,47 +150,93 @@ class BoardColumnSection extends React.Component<BoardColumnSectionProps> {
                 )}
               </div>
               {!this.state.isTitleClick && (
-                <Popconfirm
-                  title="Are you sure to delete this task?"
-                  onConfirm={handleDeleteColumn}
-                  okText="Yes"
-                  cancelText="No">
-                  <FaRegWindowClose
-                    className={styles.iconClose}
-                    // onClick={handleDeleteColumn}
-                  />
-                </Popconfirm>
+                <MenuIcon
+                  handleClick={() => {
+                    this.setState({
+                      ...this.state,
+                      isMenuOpen: !this.state.isMenuOpen,
+                    });
+                  }}
+                  isMenuOpen={this.state.isMenuOpen}
+                  cssClass={styles.iconCloseMenu}
+                  title="List Actions"
+                  content={
+                    <div>
+                      <Popconfirm
+                        title="Are you sure to delete this task?"
+                        onConfirm={handleDeleteColumn}
+                        okText="Yes"
+                        cancelText="No"
+                        placement="right">
+                        <p className={styles.sideMenuItem}>Delete Column...</p>
+                      </Popconfirm>
+                      <p
+                        className={styles.sideMenuItem}
+                        onClick={() => {
+                          this.setState({
+                            ...this.state,
+                            isCardAddClick: true,
+                            isMenuOpen: false,
+                          });
+                        }}>
+                        Add Card...
+                      </p>
+                    </div>
+                  }
+                />
               )}
 
               <Droppable droppableId={id} type="task">
                 {(provided, snapshot) => (
-                  <TaskColumn
-                    isDraggingOver={false}
-                    provided={provided}
-                    innerRef={provided.innerRef}>
-                    {cardOrder.map((cardId: string, index: number) => {
-                      return (
-                        <Draggable
-                          key={cardId}
-                          draggableId={cardId}
-                          index={index}>
-                          {(provided, snapshot) => (
-                            <TaskCard
-                              provided={provided}
-                              innerRef={provided.innerRef}
-                              snapshot={snapshot}
-                              aira-roledescription="Press space bar to left the task"
-                              card={cards[cardId]}
-                            />
-                          )}
-                        </Draggable>
-                      );
-                    })}
-                    {provided.placeholder}
-                  </TaskColumn>
+                  <>
+                    {this.state.isCardAddClick && (
+                      <div className={styles.inputGroup}>
+                        <Input
+                          name="addCardContent"
+                          value={this.state.addCardContent}
+                          onChange={handleInput}
+                          onKeyDown={handleTitleChangeOnKeyDown}
+                        />
+                        <div style={{display: "flex"}}>
+                          <FaRegCheckCircle
+                            className={styles.iconCheck}
+                            onClick={confirmAddCard}
+                          />
+                          <FaTrashAlt
+                            className={styles.iconClose}
+                            onClick={closeAddCard}
+                          />
+                        </div>
+                      </div>
+                    )}
+                    <TaskColumn
+                      isDraggingOver={false}
+                      provided={provided}
+                      innerRef={provided.innerRef}>
+                      {cardOrder.map((cardId: string, index: number) => {
+                        return (
+                          <Draggable
+                            key={cardId}
+                            draggableId={cardId}
+                            index={index}>
+                            {(provided, snapshot) => (
+                              <TaskCard
+                                provided={provided}
+                                innerRef={provided.innerRef}
+                                snapshot={snapshot}
+                                aira-roledescription="Press space bar to left the task"
+                                card={cards[cardId]}
+                              />
+                            )}
+                          </Draggable>
+                        );
+                      })}
+                      {provided.placeholder}
+                    </TaskColumn>
+                  </>
                 )}
               </Droppable>
-              <Footer>End of column 1</Footer>
+              {/* <Footer>End of column 1</Footer> */}
             </Container>
           </div>
         }
@@ -174,6 +250,8 @@ const mapState = (state: RootState) => ({})
 const mapDispatch = {
   editColumnTitle,
   deleteColumn,
+  addNewCardToColumn,
+  testThunk,
 };
 
 const connector = connect(mapState, mapDispatch);

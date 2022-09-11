@@ -106,11 +106,20 @@
     top: .5rem;
 }
 
+.iconClose {
+    color: red;
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: absolute;
+    right: 2rem;
+    top: .5rem;
+}
+
 .inputGroup {
     position: relative;
     width: 100%;
 }
-.iconClose {
+.iconCloseMenu {
     font-size: 1rem;
     cursor: pointer;
     position: absolute;
@@ -118,3 +127,6 @@
     top: .3rem;
 }
 
+.sideMenuItem {
+    cursor: pointer;
+}
