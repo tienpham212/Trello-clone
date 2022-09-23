@@ -81,4 +81,4 @@ export const {
   editColumnTitle,
   addNewCardToColumn,
 } = boardSlice.actions;
-export default boardSlice.reducer;
+export default boardSlice;
