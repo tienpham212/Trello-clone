@@ -83,6 +83,24 @@
         "LogGroupName": "/aws/lambda/test-dev-create"
       }
     },
+    "GetAllLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/test-dev-getAll"
+      }
+    },
+    "GetOneLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/test-dev-getOne"
+      }
+    },
+    "DeleteColLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/test-dev-deleteCol"
+      }
+    },
     "IamRoleLambdaExecution": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -178,7 +196,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/test/dev/1664013354329-2022-09-24T09:55:54.329Z/hello.zip"
+          "S3Key": "serverless/test/dev/1664025902857-2022-09-24T13:25:02.857Z/hello.zip"
         },
         "Handler": "src/handlers/hello.main",
         "Runtime": "nodejs14.x",
@@ -210,7 +228,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/test/dev/1664013354329-2022-09-24T09:55:54.329Z/create.zip"
+          "S3Key": "serverless/test/dev/1664025902857-2022-09-24T13:25:02.857Z/create.zip"
         },
         "Handler": "src/handlers/columnHandler.create",
         "Runtime": "nodejs14.x",
@@ -235,6 +253,102 @@
         "CreateLogGroup"
       ]
     },
+    "GetAllLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/test/dev/1664025902857-2022-09-24T13:25:02.857Z/getAll.zip"
+        },
+        "Handler": "src/handlers/columnHandler.getAll",
+        "Runtime": "nodejs14.x",
+        "FunctionName": "test-dev-getAll",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "NODE_OPTIONS": "--enable-source-maps --stack-trace-limit=1000",
+            "DYNAMODB_TABLE": "test-Board-dev"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "GetAllLogGroup"
+      ]
+    },
+    "GetOneLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/test/dev/1664025902857-2022-09-24T13:25:02.857Z/getOne.zip"
+        },
+        "Handler": "src/handlers/columnHandler.getOne",
+        "Runtime": "nodejs14.x",
+        "FunctionName": "test-dev-getOne",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "NODE_OPTIONS": "--enable-source-maps --stack-trace-limit=1000",
+            "DYNAMODB_TABLE": "test-Board-dev"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "GetOneLogGroup"
+      ]
+    },
+    "DeleteColLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/test/dev/1664025902857-2022-09-24T13:25:02.857Z/deleteCol.zip"
+        },
+        "Handler": "src/handlers/columnHandler.deleteCol",
+        "Runtime": "nodejs14.x",
+        "FunctionName": "test-dev-deleteCol",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "NODE_OPTIONS": "--enable-source-maps --stack-trace-limit=1000",
+            "DYNAMODB_TABLE": "test-Board-dev"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "DeleteColLogGroup"
+      ]
+    },
     "HelloLambdaVersionvmubBXHVVLhlmuMCMOSe7Eqrse15SOlZ7WVlmc7v0Y": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
@@ -245,14 +359,44 @@
         "CodeSha256": "UwsJv+As4QXMuNSngOKWA6oBIQNpiVvvtmcksc/VNmY="
       }
     },
-    "CreateLambdaVersionIdsRzBwONXblKH5EIpeEPK0rBmDlN2GbEB0b9gjHRYU": {
+    "GetOneLambdaVersionaVsaeUSIXNdsF8Jt4eshGPAYWoQPHoBwEndI8qmgE": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "GetOneLambdaFunction"
+        },
+        "CodeSha256": "Jx91zvIupRJ2eXpKX61J5/xl/LQSoZ/Zj0cjG9Js2xE="
+      }
+    },
+    "DeleteColLambdaVersion3xpcYaHJT0BviWWLmZU97mr6ROE6BtQVqu6Jbzvkoag": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "DeleteColLambdaFunction"
+        },
+        "CodeSha256": "Jx91zvIupRJ2eXpKX61J5/xl/LQSoZ/Zj0cjG9Js2xE="
+      }
+    },
+    "GetAllLambdaVersionLrFSClWkZOrRX06fwaO9NcXjSyIh4VbjWp2oD9s": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "GetAllLambdaFunction"
+        },
+        "CodeSha256": "Jx91zvIupRJ2eXpKX61J5/xl/LQSoZ/Zj0cjG9Js2xE="
+      }
+    },
+    "CreateLambdaVersion7b0pFatL8Q6lPzYoLGNUHgZJ98GyjCIfOkOBYiiQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateLambdaFunction"
         },
-        "CodeSha256": "HWqy5PcC9fmDQO41dRAYTE9Wmf7zb3YWMV7U2ZdmJis="
+        "CodeSha256": "Jx91zvIupRJ2eXpKX61J5/xl/LQSoZ/Zj0cjG9Js2xE="
       }
     },
     "ApiGatewayRestApi": {
@@ -293,6 +437,21 @@
           ]
         },
         "PathPart": "createColumn",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayResourceDeletecol": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGatewayRestApi",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "deleteCol",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
@@ -406,6 +565,166 @@
         "CreateLambdaPermissionApiGateway"
       ]
     },
+    "ApiGatewayMethodGet": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Fn::GetAtt": [
+            "ApiGatewayRestApi",
+            "RootResourceId"
+          ]
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "GetAllLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      },
+      "DependsOn": [
+        "GetAllLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayMethodPost": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Fn::GetAtt": [
+            "ApiGatewayRestApi",
+            "RootResourceId"
+          ]
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "GetOneLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": [],
+        "RequestValidatorId": {
+          "Ref": "ApiGatewayTestRequestValidator"
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiGatewayMethodPostApplicationJsonModel"
+          }
+        }
+      },
+      "DependsOn": [
+        "GetOneLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayMethodDeletecolPost": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceDeletecol"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "DeleteColLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": [],
+        "RequestValidatorId": {
+          "Ref": "ApiGatewayTestRequestValidator"
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiGatewayMethodDeletecolPostApplicationJsonModel"
+          }
+        }
+      },
+      "DependsOn": [
+        "DeleteColLambdaPermissionApiGateway"
+      ]
+    },
     "ApiGatewayTestRequestValidator": {
       "Type": "AWS::ApiGateway::RequestValidator",
       "Properties": {
@@ -468,7 +787,41 @@
         }
       }
     },
-    "ApiGatewayDeployment1664013353603": {
+    "ApiGatewayMethodPostApplicationJsonModel": {
+      "Type": "AWS::ApiGateway::Model",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ContentType": "application/json",
+        "Schema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "ApiGatewayMethodDeletecolPostApplicationJsonModel": {
+      "Type": "AWS::ApiGateway::Model",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ContentType": "application/json",
+        "Schema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "ApiGatewayDeployment1664025902131": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -478,7 +831,10 @@
       },
       "DependsOn": [
         "ApiGatewayMethodHelloPost",
-        "ApiGatewayMethodCreatecolumnPost"
+        "ApiGatewayMethodCreatecolumnPost",
+        "ApiGatewayMethodGet",
+        "ApiGatewayMethodPost",
+        "ApiGatewayMethodDeletecolPost"
       ]
     },
     "HelloLambdaPermissionApiGateway": {
@@ -555,6 +911,117 @@
         }
       }
     },
+    "GetAllLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GetAllLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "GetOneLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GetOneLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "DeleteColLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "DeleteColLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
     "BoardTable": {
       "Type": "AWS::DynamoDB::Table",
       "Properties": {
@@ -593,10 +1060,37 @@
         "Name": "sls-test-dev-HelloLambdaFunctionQualifiedArn"
       }
     },
+    "GetOneLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "GetOneLambdaVersionaVsaeUSIXNdsF8Jt4eshGPAYWoQPHoBwEndI8qmgE"
+      },
+      "Export": {
+        "Name": "sls-test-dev-GetOneLambdaFunctionQualifiedArn"
+      }
+    },
+    "DeleteColLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "DeleteColLambdaVersion3xpcYaHJT0BviWWLmZU97mr6ROE6BtQVqu6Jbzvkoag"
+      },
+      "Export": {
+        "Name": "sls-test-dev-DeleteColLambdaFunctionQualifiedArn"
+      }
+    },
+    "GetAllLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "GetAllLambdaVersionLrFSClWkZOrRX06fwaO9NcXjSyIh4VbjWp2oD9s"
+      },
+      "Export": {
+        "Name": "sls-test-dev-GetAllLambdaFunctionQualifiedArn"
+      }
+    },
     "CreateLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateLambdaVersionIdsRzBwONXblKH5EIpeEPK0rBmDlN2GbEB0b9gjHRYU"
+        "Ref": "CreateLambdaVersion7b0pFatL8Q6lPzYoLGNUHgZJ98GyjCIfOkOBYiiQ"
       },
       "Export": {
         "Name": "sls-test-dev-CreateLambdaFunctionQualifiedArn"
