@@ -12,63 +12,84 @@ import { Button } from '../../../Button';
 import { addNewColumn } from '../../../../redux/features/boardSlice';
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../../../redux/store';
+import {addColumnThunk} from "../../../../redux/thunks/collumnThunk";
+
+import { useDebouncedCallback } from 'use-debounce';
+import {v4 as uuidv4} from "uuid";
+import { IColumn } from '../../../../types/IColumn';
 
 interface AddNewColumnContainerProps extends ConnectedProps<typeof connector>{
 
 }
 
-const AddNewColumnContainer:FC<AddNewColumnContainerProps> = ({
+const AddNewColumnContainer: FC<AddNewColumnContainerProps> = ({
   addNewColumn,
+  addColumnThunk,
 }) => {
-
-   const escFunction = useCallback((event) => {
-     if (event.key === "Escape") {
-       setisAddSectionOpen(false);
-       setColumnTitle("");
-     }
-    }, []);
-
-    useEffect(() => {
-     document.addEventListener("keydown", escFunction, false);
-
-     return () => {
-       document.removeEventListener("keydown", escFunction, false);
-     };
-    }, []);
-
-    const [isAddSectionOpen, setisAddSectionOpen] = useState<boolean>(false)
-    const [columnTitle , setColumnTitle] = useState<string>("")
-
-    const transition = useTransition(isAddSectionOpen, {
-      from: {y: -2, opacity: 0},
-      enter: {y: 0, opacity: 1},
-      leave: {y: -10, opacity: 0},
-      config: {
-        duration: 50,
-      },
-    });
-
-    const handleAddToggle = () => {
-        setisAddSectionOpen(!isAddSectionOpen);
-        setColumnTitle("");
-    }
-
-    const handleAddSubmit = () => {
-      addNewColumn({columnTitle});
+  const escFunction = useCallback((event) => {
+    if (event.key === "Escape") {
+      setisAddSectionOpen(false);
       setColumnTitle("");
-      setisAddSectionOpen(false)
     }
+  }, []);
 
-    const handleInput = (e) => {
-      const {name , value} = e.target;
-      setColumnTitle(value);
-    }
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
 
-    const handleAddSubmitOnEnter = (e) => {
-      if (e.key === "Enter") {
-        handleAddSubmit();
-      } 
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, []);
+
+  const [isAddSectionOpen, setisAddSectionOpen] = useState<boolean>(false);
+  const [columnTitle, setColumnTitle] = useState<string>("");
+
+  const transition = useTransition(isAddSectionOpen, {
+    from: {y: -2, opacity: 0},
+    enter: {y: 0, opacity: 1},
+    leave: {y: -10, opacity: 0},
+    config: {
+      duration: 50,
+    },
+  });
+
+  const handleAddToggle = () => {
+    setisAddSectionOpen(!isAddSectionOpen);
+    setColumnTitle("");
+  };
+
+  const handleAddSubmit = () => {
+
+    const column: IColumn = {
+      id: uuidv4(),
+      cardOrder: [],
+      title: columnTitle,
+    };
+    addNewColumn({column});
+    debounced(columnTitle);
+    setColumnTitle("");
+    setisAddSectionOpen(false);
+  };
+
+  const debounced = useDebouncedCallback(
+    // function
+    (columnTitle) => {
+      addColumnThunk(columnTitle);
+    },
+    // delay in ms
+    5000
+  );
+
+  const handleInput = (e) => {
+    const {name, value} = e.target;
+    setColumnTitle(value);
+  };
+
+  const handleAddSubmitOnEnter = (e) => {
+    if (e.key === "Enter") {
+      handleAddSubmit();
     }
+  };
 
   return (
     <>
@@ -111,7 +132,7 @@ const AddNewColumnContainer:FC<AddNewColumnContainerProps> = ({
       </div>
     </>
   );
-}
+};
 
 const mapState = (state: RootState) => ({
 
@@ -119,7 +140,8 @@ const mapState = (state: RootState) => ({
 
 const mapDispatch = {
   addNewColumn,
-}
+  addColumnThunk,
+};
 
 const connector = connect(mapState, mapDispatch) ; 
 

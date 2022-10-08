@@ -21,7 +21,6 @@ import {connect, ConnectedProps} from "react-redux";
 import {editColumnTitle, deleteColumn, addNewCardToColumn} from "../../../../redux/features/boardSlice";
 import {RootState} from "../../../../redux/store";
 import MenuIcon from "../../../MenuIcon";
-import testThunk from "../../../../redux/thunks/collumnThunk";
 
 
 
@@ -80,7 +79,6 @@ class BoardColumnSection extends React.Component<BoardColumnSectionProps> {
       editColumnTitle,
       deleteColumn,
       addNewCardToColumn,
-      testThunk
     } = this.props;
     let {cardOrder, id, title} = taskColumn;
     
@@ -251,7 +249,6 @@ const mapDispatch = {
   editColumnTitle,
   deleteColumn,
   addNewCardToColumn,
-  testThunk,
 };
 
 const connector = connect(mapState, mapDispatch);

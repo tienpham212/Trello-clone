@@ -1,12 +1,23 @@
 import boardSlice from "../features/boardSlice";
+import { IColumn } from "../../types/IColumn";
+import columnServices from "../../services/columnServices";
+import API from "../../services/APIServices";
 
-function testThunk(data) {
-  return function next123(dispatch, getState) {
-    console.log(data);
-    console.log("getstate" , getState());
-    dispatch( boardSlice.actions.addNewColumn({columnTitle: "new column"}) )
+
+ export const  addColumnThunk = (title: string) => {
+    return async (dispatch, getState) => {
+        try {
+            if(!title) throw new Error("No title provided");
+            await columnServices.addColumn(title, dispatch);
+        } catch (error) {
+            console.log(error)
+        }
   };
 }
 
+export const getAllColumns = () => {
 
-export default testThunk;
+}
+
+
+

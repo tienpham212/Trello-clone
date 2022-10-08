@@ -20,10 +20,6 @@ const createColumns:ValidatedEventAPIGatewayProxyEvent<typeof columnSchema> = as
       error,
     });
   }
- 
-
-  
-  
 };
 
 const getAllColumns:ValidatedEventAPIGatewayProxyEvent<typeof columnSchema> = async (event) => {

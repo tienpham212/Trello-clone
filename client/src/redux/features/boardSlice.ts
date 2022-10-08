@@ -3,6 +3,8 @@ import { IList } from "../../types/IList";
 import initialData from "../../helper/initialData";
 import { IColumn, IColumns } from "../../types/IColumn";
 import { ICard } from "../../types/ICard";
+import {v4 as uuidv4} from "uuid";
+
 
 const initialState: IList = initialData;
 
@@ -28,15 +30,10 @@ const boardSlice = createSlice({
     },
     addNewColumn: (
       state: IList,
-      action: PayloadAction<{columnTitle: string}>
+      action: PayloadAction<{column: IColumn}>
     ) => {
-      const columnId = `${Math.random()}`;
-      const newColumn: IColumn = {
-        id: columnId,
-        title: action.payload?.columnTitle,
-        cardOrder: [],
-      };
-      state.columns = {...state.columns, [columnId]: newColumn};
+      const columnId = action.payload.column.id;
+      state.columns = {...state.columns, [columnId]: action.payload.column};
       state.columnOrder = [...state.columnOrder, columnId];
     },
     deleteColumn: (state: IList, action: PayloadAction<{columnId: string}>) => {
