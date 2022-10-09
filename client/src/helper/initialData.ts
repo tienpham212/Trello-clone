@@ -1,4 +1,4 @@
-import { IList } from "../types/IList";
+import { IList } from "../../../types/IList";
 
 const initialData: IList = {
   cards: {

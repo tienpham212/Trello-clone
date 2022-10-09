@@ -196,7 +196,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/test/dev/1664025902857-2022-09-24T13:25:02.857Z/hello.zip"
+          "S3Key": "serverless/test/dev/1665312744661-2022-10-09T10:52:24.661Z/hello.zip"
         },
         "Handler": "src/handlers/hello.main",
         "Runtime": "nodejs14.x",
@@ -228,7 +228,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/test/dev/1664025902857-2022-09-24T13:25:02.857Z/create.zip"
+          "S3Key": "serverless/test/dev/1665312744661-2022-10-09T10:52:24.661Z/create.zip"
         },
         "Handler": "src/handlers/columnHandler.create",
         "Runtime": "nodejs14.x",
@@ -260,7 +260,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/test/dev/1664025902857-2022-09-24T13:25:02.857Z/getAll.zip"
+          "S3Key": "serverless/test/dev/1665312744661-2022-10-09T10:52:24.661Z/getAll.zip"
         },
         "Handler": "src/handlers/columnHandler.getAll",
         "Runtime": "nodejs14.x",
@@ -292,7 +292,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/test/dev/1664025902857-2022-09-24T13:25:02.857Z/getOne.zip"
+          "S3Key": "serverless/test/dev/1665312744661-2022-10-09T10:52:24.661Z/getOne.zip"
         },
         "Handler": "src/handlers/columnHandler.getOne",
         "Runtime": "nodejs14.x",
@@ -324,7 +324,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/test/dev/1664025902857-2022-09-24T13:25:02.857Z/deleteCol.zip"
+          "S3Key": "serverless/test/dev/1665312744661-2022-10-09T10:52:24.661Z/deleteCol.zip"
         },
         "Handler": "src/handlers/columnHandler.deleteCol",
         "Runtime": "nodejs14.x",
@@ -349,54 +349,54 @@
         "DeleteColLogGroup"
       ]
     },
-    "HelloLambdaVersionvmubBXHVVLhlmuMCMOSe7Eqrse15SOlZ7WVlmc7v0Y": {
+    "HelloLambdaVersioncKR4BsVJoPfObsFLB3P0mILUiCEtpUO7bjmSx4TemU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "HelloLambdaFunction"
         },
-        "CodeSha256": "UwsJv+As4QXMuNSngOKWA6oBIQNpiVvvtmcksc/VNmY="
+        "CodeSha256": "wXa/QSK2jM2puxOLomY/+7cxtQ4Hckw+VKvixzHEfZw="
       }
     },
-    "GetOneLambdaVersionaVsaeUSIXNdsF8Jt4eshGPAYWoQPHoBwEndI8qmgE": {
-      "Type": "AWS::Lambda::Version",
-      "DeletionPolicy": "Retain",
-      "Properties": {
-        "FunctionName": {
-          "Ref": "GetOneLambdaFunction"
-        },
-        "CodeSha256": "Jx91zvIupRJ2eXpKX61J5/xl/LQSoZ/Zj0cjG9Js2xE="
-      }
-    },
-    "DeleteColLambdaVersion3xpcYaHJT0BviWWLmZU97mr6ROE6BtQVqu6Jbzvkoag": {
+    "DeleteColLambdaVersionhfZBTQjD6rdgMCRqQqzI9Axc6yupi56rLd1iPNv4YVE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "DeleteColLambdaFunction"
         },
-        "CodeSha256": "Jx91zvIupRJ2eXpKX61J5/xl/LQSoZ/Zj0cjG9Js2xE="
+        "CodeSha256": "MCYbUDnuHil6NNDan/Z/ccgDXnEtJuzt+axA3TPsB/4="
       }
     },
-    "GetAllLambdaVersionLrFSClWkZOrRX06fwaO9NcXjSyIh4VbjWp2oD9s": {
+    "GetOneLambdaVersionFsdDjBFgwk3jNiVaz1Yk7yEYWiDpIZaw1Lp94byerg": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "GetOneLambdaFunction"
+        },
+        "CodeSha256": "MCYbUDnuHil6NNDan/Z/ccgDXnEtJuzt+axA3TPsB/4="
+      }
+    },
+    "GetAllLambdaVersiony1hjrdvVC0nBrsmHeV0dF13G4LxPUIp7Chvn4PB4FM": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetAllLambdaFunction"
         },
-        "CodeSha256": "Jx91zvIupRJ2eXpKX61J5/xl/LQSoZ/Zj0cjG9Js2xE="
+        "CodeSha256": "MCYbUDnuHil6NNDan/Z/ccgDXnEtJuzt+axA3TPsB/4="
       }
     },
-    "CreateLambdaVersion7b0pFatL8Q6lPzYoLGNUHgZJ98GyjCIfOkOBYiiQ": {
+    "CreateLambdaVersionAmjaVtUJdBoY27hCEEbB0aDZja8Zj5rycvAmfc4QajA": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateLambdaFunction"
         },
-        "CodeSha256": "Jx91zvIupRJ2eXpKX61J5/xl/LQSoZ/Zj0cjG9Js2xE="
+        "CodeSha256": "MCYbUDnuHil6NNDan/Z/ccgDXnEtJuzt+axA3TPsB/4="
       }
     },
     "ApiGatewayRestApi": {
@@ -452,6 +452,51 @@
           ]
         },
         "PathPart": "deleteCol",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodCreatecolumnOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
+              },
+              "ResponseTemplates": {
+                "application/json": ""
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceCreatecolumn"
+        },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
@@ -821,7 +866,7 @@
         }
       }
     },
-    "ApiGatewayDeployment1664025902131": {
+    "ApiGatewayDeployment1665312743796": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -830,6 +875,7 @@
         "StageName": "dev"
       },
       "DependsOn": [
+        "ApiGatewayMethodCreatecolumnOptions",
         "ApiGatewayMethodHelloPost",
         "ApiGatewayMethodCreatecolumnPost",
         "ApiGatewayMethodGet",
@@ -1054,34 +1100,34 @@
     "HelloLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HelloLambdaVersionvmubBXHVVLhlmuMCMOSe7Eqrse15SOlZ7WVlmc7v0Y"
+        "Ref": "HelloLambdaVersioncKR4BsVJoPfObsFLB3P0mILUiCEtpUO7bjmSx4TemU"
       },
       "Export": {
         "Name": "sls-test-dev-HelloLambdaFunctionQualifiedArn"
       }
     },
-    "GetOneLambdaFunctionQualifiedArn": {
-      "Description": "Current Lambda function version",
-      "Value": {
-        "Ref": "GetOneLambdaVersionaVsaeUSIXNdsF8Jt4eshGPAYWoQPHoBwEndI8qmgE"
-      },
-      "Export": {
-        "Name": "sls-test-dev-GetOneLambdaFunctionQualifiedArn"
-      }
-    },
     "DeleteColLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "DeleteColLambdaVersion3xpcYaHJT0BviWWLmZU97mr6ROE6BtQVqu6Jbzvkoag"
+        "Ref": "DeleteColLambdaVersionhfZBTQjD6rdgMCRqQqzI9Axc6yupi56rLd1iPNv4YVE"
       },
       "Export": {
         "Name": "sls-test-dev-DeleteColLambdaFunctionQualifiedArn"
       }
     },
+    "GetOneLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "GetOneLambdaVersionFsdDjBFgwk3jNiVaz1Yk7yEYWiDpIZaw1Lp94byerg"
+      },
+      "Export": {
+        "Name": "sls-test-dev-GetOneLambdaFunctionQualifiedArn"
+      }
+    },
     "GetAllLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetAllLambdaVersionLrFSClWkZOrRX06fwaO9NcXjSyIh4VbjWp2oD9s"
+        "Ref": "GetAllLambdaVersiony1hjrdvVC0nBrsmHeV0dF13G4LxPUIp7Chvn4PB4FM"
       },
       "Export": {
         "Name": "sls-test-dev-GetAllLambdaFunctionQualifiedArn"
@@ -1090,7 +1136,7 @@
     "CreateLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateLambdaVersion7b0pFatL8Q6lPzYoLGNUHgZJ98GyjCIfOkOBYiiQ"
+        "Ref": "CreateLambdaVersionAmjaVtUJdBoY27hCEEbB0aDZja8Zj5rycvAmfc4QajA"
       },
       "Export": {
         "Name": "sls-test-dev-CreateLambdaFunctionQualifiedArn"

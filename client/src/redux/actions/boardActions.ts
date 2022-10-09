@@ -1,6 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { IColumn } from "../../types/IColumn";
-import { IList } from "../../types/IList";
+import { IColumn } from "../../../../types/IColumn";
+import { IList } from "../../../../types/IList";
 
  export const addNewColumn = (
       state: IList,

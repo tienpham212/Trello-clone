@@ -9,8 +9,8 @@ import BoardSection from "./components/BoardColumnSection";
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 
 //TYPES
-import {IColumn} from "../../types/IColumn";
-import {IList} from "../../types/IList";
+import {IColumn} from "../../../../types/IColumn";
+import {IList} from "../../../../types/IList";
 import {mapOrder} from "../../helper/utilites";
 
 //REDUX

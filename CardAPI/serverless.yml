@@ -21,36 +21,41 @@ provider:
           Resource: arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/${self:service}-Card-${sls:stage}
 
 functions:     	
-  createBoard:
+  createCard:
     handler: src/handlers/cardHandler.createCard
     events:
-      - httpApi:
+      - http:
           path: /create
           method: post
+          cors: true
   getCards:
     handler: src/handlers/cardHandler.getCards
     events:
-      - httpApi:
+      - http:
           path: /get
           method: get
+          cors: true
   getCardItem:
     handler: src/handlers/cardHandler.getCardItem
     events:
-      - httpApi:
+      - http:
           path: /get/{id}
           method: get
+          cors: true
   deleteCardItem:
     handler: src/handlers/cardHandler.deleteCardItem
     events:
-      - httpApi:
+      - http:
           path: /delete
           method: post
+          cors: true
   updateCardItem:
     handler: src/handlers/cardHandler.updateCardItem
     events:
-      - httpApi:
+      - http:
           path: /update
           method: post
+          cors: true
 resources:
   Resources:
     CustomerTable:

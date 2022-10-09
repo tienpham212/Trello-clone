@@ -1,5 +1,5 @@
 import React from "react";
-import { ICard } from "../../types/ICard";
+import { ICard } from "../../../../types/ICard";
 //CSS
 import styles from "./TaskCard.module.css";
 

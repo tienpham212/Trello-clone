@@ -16,7 +16,7 @@ import {addColumnThunk} from "../../../../redux/thunks/collumnThunk";
 
 import { useDebouncedCallback } from 'use-debounce';
 import {v4 as uuidv4} from "uuid";
-import { IColumn } from '../../../../types/IColumn';
+import { IColumn} from '../../../../../../types/IColumn';
 
 interface AddNewColumnContainerProps extends ConnectedProps<typeof connector>{
 

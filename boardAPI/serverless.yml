@@ -24,33 +24,38 @@ functions:
   createBoard:
     handler: src/handlers/boardHandler.createBoard
     events:
-      - httpApi:
+      - http:
           path: /create
           method: post
+          cors: true
   getBoards:
     handler: src/handlers/boardHandler.getBoards
     events:
-      - httpApi:
+      - http:
           path: /get
           method: get
+          cors: true
   getBoardItem:
     handler: src/handlers/boardHandler.getBoardItem
     events:
-      - httpApi:
+      - http:
           path: /get/{id}
           method: get
+          cors: true
   deleteBoardItem:
     handler: src/handlers/boardHandler.deleteBoardItem
     events:
-      - httpApi:
+      - http:
           path: /delete
           method: post
+          cors: true
   updateBoardItem:
     handler: src/handlers/boardHandler.updateBoardItem
     events:
-      - httpApi:
+      - http:
           path: /update
           method: post
+          cors: true
 resources:
   Resources:
     CustomerTable:
@@ -58,8 +63,6 @@ resources:
       Properties:
         AttributeDefinitions:
           - AttributeName: primary_key
-            AttributeType: S
-          - AttributeName: columnOrder
             AttributeType: S
         BillingMode: PAY_PER_REQUEST
         KeySchema:

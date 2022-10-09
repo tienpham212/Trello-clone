@@ -1,12 +1,13 @@
 import columnSchema from "src/schemas/columnSchema";
 
-export const create =  {
+export const create = {
   handler: `src/handlers/columnHandler.create`,
   events: [
     {
       http: {
         method: "post",
         path: "/createColumn",
+        cors: true,
         request: {
           schemas: {
             "application/json": columnSchema,
@@ -23,6 +24,7 @@ export const getAll = {
     {
       http: {
         method: "get",
+        cors: true,
         path: "/",
       },
     },
@@ -35,6 +37,7 @@ export const getOne = {
     {
       http: {
         method: "post",
+        cors: true,
         path: "/",
         request: {
           schemas: {
@@ -57,6 +60,7 @@ export const deleteCol = {
       http: {
         method: "post",
         path: "/deleteCol",
+        cors: true,
         request: {
           schemas: {
             "application/json": {

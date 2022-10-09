@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IList } from "../../types/IList";
+import { IList } from "../../../../types/IList";
 import initialData from "../../helper/initialData";
-import { IColumn, IColumns } from "../../types/IColumn";
-import { ICard } from "../../types/ICard";
+import { IColumn, IColumns } from "../../../../types/IColumn";
+import { ICard } from "../../../../types/ICard";
 import {v4 as uuidv4} from "uuid";
 
 

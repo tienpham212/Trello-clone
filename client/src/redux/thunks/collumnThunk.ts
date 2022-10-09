@@ -1,5 +1,5 @@
 import boardSlice from "../features/boardSlice";
-import { IColumn } from "../../types/IColumn";
+import { IColumn } from "../../../../types/IColumn";
 import columnServices from "../../services/columnServices";
 import API from "../../services/APIServices";
 
